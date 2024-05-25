@@ -1,0 +1,182 @@
+
+:root{
+  --background: #325050;
+  --primary: #FFFFFF;
+  --secondary:#D8D8D8;
+  --foreground:#878787;
+  --accent: #A43434;
+
+}
+body{
+  background-color: var(--background);
+  font-family: 'Marck Script', cursive;
+}
+.flex-center-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 ;
+  & *{
+	height: 100%;
+  }
+}
+.flex-row-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+ 
+}
+.flex-column-container{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	& ul{
+		& li{
+			width: 60vw;
+		}
+	}
+}
+.element-generic-style {
+	& *{
+		font-size: 3vw;
+		@media screen and (max-width: 600px) /* Mobile */ {
+			transition: font-size 0.1s;
+			font-size: 6vw;
+		}
+		font-weight: bold;
+		text-align: center;
+		padding: 20px 0;
+		background-color: var(--primary);
+		width: 100%;
+	}
+ 
+}
+.header-text{
+  font-size: 4vw;
+  @media screen and (max-width: 600px) /* Mobile */ {
+	transition: font-size 0.1s;
+	font-size: 18vw;
+}
+@media screen and (min-width: 600px) /* Desktop */ {
+	& {
+		transition: font-size 0.1s;
+		font-size: 4vw;
+	}
+  }
+  color: var(--primary);
+  text-align: center;
+}
+.task{
+	background-color: var(--primary);
+	width: 30vw;
+	&:nth-of-type(even){
+		ul &, & *{
+			background-color: var(--secondary);
+		}
+	}
+	&:hover{
+		ul &, & *{
+			transition: background-color ease-in 0.2s;
+			background-color: var(--foreground);
+		}
+	}
+}
+.completed-task{
+	& :first-child::before, & p{
+		text-decoration: line-through;
+		color: var(--primary);
+	}
+	&{
+		ul &, & *{
+			background-color: var(--foreground);
+		}
+	}
+}
+.awaiting-task{
+	& :first-child::before{
+		content: '⏰';
+	}
+}
+.input-element{
+	width: 80vw;
+	& *{
+		height: auto;
+	}
+	& input{
+		height: initial;
+	}
+	
+	& button{
+		width: 20vw;
+		&#createButton{
+			background-color: var(--foreground);
+		}
+		&#clearButton{
+			background-color: var(--accent);
+		}
+		&:hover{
+			&#createButton{
+				transition: background-color ease-in 0.2s;
+				background-color: var(--secondary);
+			}
+			&#clearButton{
+				transition: background-color ease-in 0.2s;
+				background-color: var(--secondary);
+			}
+			
+		}
+		
+	}
+	@media screen and (min-width: 600px) /* Desktop */ {
+		& {
+		  flex-wrap: nowrap;
+		  & button{
+			transition: width 0.1s;
+			width: 20vw;;
+		}
+		}
+	  }
+	@media screen and (max-width: 600px) /* Mobile */ {
+		& {
+			flex-wrap: wrap;
+			flex-direction: column;
+			& button{
+				transition: width 0.3s;
+				width: 100%;
+			}
+		}
+	}
+}
+
+.awaiting-task :first-child:hover:before, .completed-task :first-child::before{
+	content: '✔️';
+}
+
+footer{
+	border-top: 4px solid var(--primary);
+	background-color: var(--background);
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 100px;
+	& p {
+		font-size: 60px;
+		text-align: center;
+		margin: 10px;
+		@media screen and (min-width: 600px) /* Desktop */ {
+			transition: 0.2s;
+			font-size: 60px;
+		  }
+		@media screen and (max-width: 600px) /* Mobile */ {
+			transition: 0.2s;
+			font-size: 30px;
+			margin: 20px;
+		}
+	}
+	&:hover{
+		transition: display 2s;
+		display: none;
+	}
+	
+}
