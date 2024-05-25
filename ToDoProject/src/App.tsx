@@ -7,11 +7,6 @@ import { useState } from "react";
 import "./css/reset.css";
 import "./css/style.css";
 
-interface Task {
-  content: string;
-  IsComplete: boolean;
-}
-
 function App() {
   const cookies = new Cookies();
 
@@ -23,12 +18,18 @@ function App() {
   const [taskList, UpdateTaskList] = useState(getTasks());
 
   const onCreateClick = () => {
-    let tasks = taskList;
-    tasks.push({ content: nameKey, isComplete: false });
-    UpdateTaskList(tasks);
-    UpdateNameKey("");
+    if (nameKey.trim() != "") {
+      let tasks = taskList;
+      tasks.push({ content: nameKey, isComplete: false });
+      UpdateTaskList(tasks);
+      UpdateNameKey("");
+      cookies.set("taskList", JSON.stringify(taskList));
+    }
   };
-  const OnDeleteAllClick = () => {};
+  const OnDeleteAllClick = () => {
+    UpdateTaskList([]);
+    cookies.set("taskList", JSON.stringify(taskList));
+  };
   return (
     <>
       <Header>Список дел</Header>
@@ -37,7 +38,7 @@ function App() {
         onCreateClick={onCreateClick}
         OnDeleteClick={OnDeleteAllClick}
       ></TaskManager>
-      <TaskList tasks={taskList}></TaskList>
+      <TaskList tasks={taskList} UpdateTaskList={UpdateTaskList}></TaskList>
       <Footer>link.com</Footer>
     </>
   );

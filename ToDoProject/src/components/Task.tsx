@@ -18,6 +18,7 @@ const Task = ({
   const [taskState, UpdateTaskState] = useState(
     "awaiting-task" || "completed-task"
   );
+
   return (
     <li
       className={"flex-row-container element-generic-style task " + taskState}
@@ -30,7 +31,13 @@ const Task = ({
         }}
       ></Button>
       <p id="taskContent">{content}</p>
-      <Button onClick={OnDeleteClick}>X</Button>
+      <Button
+        onClick={() => {
+          OnDeleteClick;
+        }}
+      >
+        X
+      </Button>
     </li>
   );
 };

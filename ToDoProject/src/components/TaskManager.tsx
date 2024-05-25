@@ -9,7 +9,6 @@ interface Props {
   OnDeleteClick: () => void;
 }
 const TaskManager = ({
-  nameKey = "",
   UpdateNameKey,
   onCreateClick,
   OnDeleteClick,

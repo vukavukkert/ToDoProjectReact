@@ -2,8 +2,9 @@ import Task from "./Task";
 
 interface Props {
   tasks: [{ content: string; isComplete: boolean }];
+  UpdateTaskList: ([]) => void;
 }
-const TaskList = ({ tasks }: Props) => {
+const TaskList = ({ tasks, UpdateTaskList }: Props) => {
   return (
     <>
       <div className="flex-center-container">
@@ -15,7 +16,12 @@ const TaskList = ({ tasks }: Props) => {
                   content={item.content}
                   isComplete={item.isComplete}
                   OnCompleteClick={() => {}}
-                  OnDeleteClick={() => {}}
+                  OnDeleteClick={() => {
+                    console.log(index);
+                    tasks.splice(index, 1);
+                    UpdateTaskList(tasks);
+                    console.log(tasks);
+                  }}
                   key={index}
                 ></Task>
               );
