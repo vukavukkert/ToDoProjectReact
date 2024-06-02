@@ -7,39 +7,44 @@ interface Props {
   content: string;
   isComplete: boolean;
   key: number;
+  doRender: boolean;
 }
 
 const Task = ({
   OnCompleteClick,
   OnDeleteClick,
   content,
-  isComplete = false,
+  isComplete,
+  doRender = true,
 }: Props) => {
-  const [taskState, UpdateTaskState] = useState(
-    "awaiting-task" || "completed-task"
-  );
-
-  return (
-    <li
-      className={"flex-row-container element-generic-style task " + taskState}
-    >
-      <Button
-        onClick={() => {
-          UpdateTaskState("completed-task");
-          isComplete = true;
-          OnCompleteClick();
-        }}
-      ></Button>
-      <p id="taskContent">{content}</p>
-      <Button
-        onClick={() => {
-          OnDeleteClick;
-        }}
+  const [taskState, UpdateTaskState] = useState(isComplete);
+  const [render, UpdateRender] = useState(doRender);
+  if (render) {
+    return (
+      <li
+        className={`flex-row-container element-generic-style task  ${
+          taskState == true ? "completed-task" : "awaiting-task"
+        }`}
       >
-        X
-      </Button>
-    </li>
-  );
+        <Button
+          onClick={() => {
+            UpdateTaskState(true);
+            isComplete = true;
+            OnCompleteClick();
+          }}
+        ></Button>
+        <p id="taskContent">{content}</p>
+        <Button
+          onClick={() => {
+            OnDeleteClick();
+            UpdateRender(false);
+          }}
+        >
+          X
+        </Button>
+      </li>
+    );
+  }
 };
 
 export default Task;

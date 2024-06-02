@@ -2,9 +2,10 @@ import Task from "./Task";
 
 interface Props {
   tasks: [{ content: string; isComplete: boolean }];
-  UpdateTaskList: ([]) => void;
+  DeleteTask: (item: { content: string; isComplete: boolean }) => void;
+  CompleteTask: (item: { content: string; isComplete: boolean }) => void;
 }
-const TaskList = ({ tasks, UpdateTaskList }: Props) => {
+const TaskList = ({ tasks, DeleteTask, CompleteTask }: Props) => {
   return (
     <>
       <div className="flex-center-container">
@@ -15,13 +16,9 @@ const TaskList = ({ tasks, UpdateTaskList }: Props) => {
                 <Task
                   content={item.content}
                   isComplete={item.isComplete}
-                  OnCompleteClick={() => {}}
-                  OnDeleteClick={() => {
-                    console.log(index);
-                    tasks.splice(index, 1);
-                    UpdateTaskList(tasks);
-                    console.log(tasks);
-                  }}
+                  OnCompleteClick={() => CompleteTask(item)}
+                  OnDeleteClick={() => DeleteTask(item)}
+                  doRender={true}
                   key={index}
                 ></Task>
               );
